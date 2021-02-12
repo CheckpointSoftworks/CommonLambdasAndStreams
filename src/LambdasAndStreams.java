@@ -3,22 +3,21 @@
   Date:   01/27/2021
   README: This project is meant to serve as an area of reference and practice for COMMMON STREAM + LAMBDA OPERATIONS IN JAVA.
 		  Level: Intermediate. Assumes knowledge over Collections, OOP, and already strong at loops/logic.
-
-          Instead of relying on the Oracle documentation, which can sometimes be obtuse and lacking in examples, common
-          examples that you NEED TO KNOW are shown here.  Writing these out by hand and reviewing them should help you 
-          get used to Lambda, functional syntax, and ternarys if you are new to Java 8+, as well as streamline you (no pun intended)
-          into memorizing the most common things you will need to know using streams and lambdas.  Good luck and have fun! 
-          
-  IMPORTS: These are some of the common imports you might need when working with Streams.  Never assume that they will be 
-           imported automatically, and try to memorize them.  You may also consider pulling up the documentation/API for each
-           of these and reviewing them.  If you are unfamiliar with these collections, please learn them before continuing. */         
+          Instead of relying on the Oracle documentation, which can sometimes be lacking in examples, common
+          examples that you NEED TO KNOW are shown here.  This guide should STREAMLINE you (pun intended) into knowledge.
+                    
+  IMPORTS: Please review these Collections before continuing with the tutorial, if you are not confident on these.  */         
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator; //<-- Definitely research and understand Comparator first if you have never created a Comparator.
 import java.util.Hashtable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Supplier;
 import java.util.stream.*;
 import java.util.Collections;
@@ -139,7 +138,7 @@ public class LambdasAndStreams {
 		//Pitfalls: In order to filter out all those less OR EQUAL TO 'M', we can start with n.  This is an easy way to do it
 		//          that doesn't require any special ASCII tricks or conversions to integer, etc...
 		
-	    //Filter out all odds from an ArrayList<Integer>:
+		//Filter out all odds from an ArrayList<Integer>:
 		ArrayList<Integer> someodds = new ArrayList<Integer>(List.of(1,2,4,3,11,5,7,9,12));
 		someodds = someodds.stream().filter(num -> num%2==1).collect(Collectors.toCollection(ArrayList::new));
 		System.out.println("Filter all elements that are odd from an ArrayList<Integer>: " + someodds);
@@ -327,10 +326,9 @@ public class LambdasAndStreams {
 	    
 	    //Use a forEach with a lambda to print every Customers name and age in Custs:
 	    System.out.println("\n Every customer's name and age: ");
-	    custs.forEach(c -> System.out.print(c.getName() + " " + c.getAge()));
+	    custs.forEach(c -> System.out.print(c.getName() + " " + c.getAge() + " "));
 	    //Pitfalls: Again, make sure to use a ternary statement that does a null check.  
 	    //          Otherwise you are asking for a null ref error!  Give a default for the null case. 
-	    
 	    
 		/* ------------------ END OF ARRAYS SECTION OF LAMBDAS STREAMS AND TERNARYS ------------------
 		Key Takeaways:
@@ -366,44 +364,63 @@ public class LambdasAndStreams {
 		/* --------------------------------- HASHTABLE AND HASHMAP:-----------------------------------
 		How to use streams around Maps. (Note: Do not confuse a HashMap with the .Map() stream method!) */
 		
-		//Find the largest VALUE in a Hashtable<String,Integer> (JUST the largest value)
-		System.out.println("Key associated with the maximum value in a Hashtable: ");
+		//Find the largest VALUE in a HashMap<String,Integer> (JUST the largest value)
+		HashMap<String,Integer> hm1 = new HashMap<String,Integer>();
+		Entry<String,Integer> default_entry = new AbstractMap.SimpleEntry<String,Integer>("defaultentry",100);
+		hm1.put("Z",0); hm1.put("Y", 1); hm1.put("X", 2); hm1.put("W", 3); hm1.put("V", 4);
+		int largest = hm1.values().stream().max(Integer::compare).orElse(-1);
+	    System.out.println("Key associated with the maximum value in a Hashtable: " + largest);
+		//Pitfalls: Make sure to use an orElse whenever using max() or min()  
 		
+		//Find the largest KEY in a HashMap<String,Integer> (JUST the largest key)
+	    String largest_key = hm1.keySet().stream().max(String::compareTo).orElse("Default");
+	    System.out.println("Maximum String key in Hashtable: " + largest_key);
 		
-		//Find the largest KEY in a Hashtable<String,Integer> (JUST the largest key)
-		System.out.println("Minimum String key in Hashtable: " + min);
-		
-		
-		//Find the largest ENTRY in a HashMap<String,Integer> based on highest VALUE:
-		System.out.println("Find the largest ENTRY in a HashMap<String,Integer> based on VALUE: ");
-		
+		//Find the ENTRY in a HashMap<String,Integer> based on highest VALUE:
+		Entry<String,Integer> highest_val_entry = hm1.entrySet().stream().max((v,k) -> v.getValue() > k.getValue() ?
+				                                                              1 : -1).get(); 
+		System.out.println("Find the largest ENTRY in a HashMap<String,Integer> based on VALUE: " +
+				highest_val_entry.getKey() + " " + highest_val_entry.getValue()); 
 		
 		//Find the largest ENTRY in a HashMap<String,Integer> based on highest alphanumeric KEY:
-		System.out.println("Find the largest ENTRY in a HashMap<String,Integer> based on KEY: ");
-		
+		Entry<String,Integer> highest_key_entry = hm1.entrySet().stream().max((v,k) -> (v.getKey()).compareTo(k.getKey()) > 0 ? 
+				                                                          1 : -1).get();
+		System.out.println("Find the largest ENTRY in a HashMap<String,Integer> based on KEY: " 
+				            + highest_key_entry.getKey() + " " + highest_key_entry.getValue());
 		
 		//Find the KEY in a HashMap<String,Integer> associated with the lowest VALUE:
-		System.out.println("Find the KEY in a HashMap<String,Integer> associated with the lowest VALUE: ");
+		String key_of_lowest_val = hm1.entrySet().stream().min((v,k) -> v.getValue() - k.getValue()).get().getKey();
+		System.out.println("Find the KEY in a HashMap<String,Integer> associated with the lowest VALUE: " + key_of_lowest_val);
 		
-		
-		//Find the VALUE in a HashMap<String,Integer> associated with the highest KEY:
-		System.out.println("Find the VALUE in a HashMap<String,Integer> associated with the highest KEY: ");
-		
+		//Find the VALUE in a HashMap<String,Integer> associated with the lowest KEY:
+		Integer val_of_lowest_key = hm1.entrySet().stream().min((v,k) -> (v.getKey()).compareTo(k.getKey()) < 0 ? 1 : -1)
+				                                            .get().getValue();
+		System.out.println("Find the VALUE in a HashMap<String,Integer> associated with the highest KEY: " + val_of_lowest_key);
 		
 		//Find the KEY in a HashMap<String,Integer> associated with the highest VALUE:		
-		System.out.println("Find the KEY in a HashMap<String,Integer> associated with the highest VALUE: ");
-		
+		String key_of_highest_val = hm1.entrySet().stream().max((v,k) -> v.getValue() - k.getValue())
+				                       .get().getKey();
+		System.out.println("Find the KEY in a HashMap<String,Integer> associated with the highest VALUE: " + key_of_highest_val);
 		
 		//Find all Customers in the table CustomersTable where their index (integer) is less than 10:
-		System.out.println("Find all Customers in CustomersTable where index < 10");
-		
+	    HashMap<Integer, Customer> cust_table = createCustomersTable();
+		HashMap<Integer,Customer> custs_with_low_index = cust_table.entrySet().stream().filter(c -> c.getKey() < 10)
+				               .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v,k) -> k, HashMap::new));
+		System.out.println("\nFind all Customers in CustomersTable where index < 10: ");
+		custs_with_low_index.entrySet().forEach(entry -> System.out.print(entry.getKey() + " " + entry.getValue().getName() + " "));
 		
 		//Find all indexes (integer) where Customer last name began with an 's':
-		System.out.println("Find all indexes where Customer last name began with an 's': ");
+		HashMap<Integer,Customer> lastname_s = cust_table.entrySet().stream().filter(
+				                                          cust -> cust.getValue().getName().split(" ")[1] != null ?
+				                                        		  cust.getValue().getName().split(" ")[1].startsWith("s") : 
+				                                        	      cust.getValue().getName().split(" ")[0].startsWith("s"))
+				                                          .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,
+				                                        		                   (v,k) -> v, HashMap::new));
+		System.out.println("\nFind all indexes where Customer last name began with an 's': ");
+		lastname_s.entrySet().forEach(c -> System.out.print(c.getKey() + " " + c.getValue().getName()));
 		
 		/* ----------- END OF HASHTABLE AND HASHMAP SECTION OF LAMBDAS STREAMS AND TERNARYS -------------
 		Key Takeaways: 
-			- 
 			- 
 			- 
 			- 
@@ -441,6 +458,26 @@ public class LambdasAndStreams {
     
     static HashMap<Integer,Customer> createCustomersTable() {
     	HashMap<Integer, Customer> customers = new HashMap<Integer,Customer>();
+    	customers.put(0, new Customer("Just seeing","987-654-3210",29,"IfThisWorks@gmail.com"));
+    	customers.put(1, new Customer("Ecample dude","555-555-5555",24,"EcsKeyIsBroken@aol.com"));
+    	customers.put(2, new Customer("James Someone","607-532-0952",35,"James.Someone@yahoo.com"));
+    	customers.put(3, new Customer("Frankold Chesire","645-843-1648",45,"Frankold.Chesire@gmail.com"));
+    	customers.put(4, new Customer("Lisa Porridge","654-156-0816",19,"Lisa.Porridge@protonmail.com"));
+    	customers.put(5, new Customer("Michael Salton","794-615-4982",22,"Michael.Savant@gmail.com"));
+    	customers.put(6, new Customer("Whose This","615-468-1865",65,"Whose.This@bing.com"));
+    	customers.put(7, new Customer("OneHundred P. Effort","740-456-1234",53,"OneHundredPEffort@aol.com"));
+    	customers.put(8, new Customer("Someone Else","530-948-8461",15,"SomeoneElse@hotmail.com"));
+    	customers.put(9, new Customer("Michelle Obama","123-456-9874",70,"Michaelle.Obama567@gmail.com"));
+    	customers.put(10, new Customer("Barack Obama","614-489-1684",42,"Barack.Hussein.Obama@hotmail.com"));
+    	customers.put(11, new Customer("Donald Trump","614-874-9843",34,"DonaldPTrump@yahoo.com"));
+    	customers.put(13, new Customer("Joseph Biden","051-465-4891",25,"JoeBiden@outlook.com"));
+    	customers.put(14, new Customer("Hillary Clinton","614-764-8531",80,"HillaryClinton@gmail.com"));
+    	customers.put(15, new Customer("George W Bush","316-145-6495",40,"GeorgeWBush@outlook.com"));
+    	customers.put(16, new Customer("Saditya Patel","974-851-4652",61,"SadityaPatel@aol.com"));
+    	customers.put(17, new Customer("Meadow Tsunami","614-486-4826",23,"MeadowTsunamiSoftworksLLC@outlook.com"));
+    	customers.put(18, new Customer("Nancy Holson","456-123-7894",29,"NanyHolson@yahoo.com"));
+    	customers.put(19, new Customer("Veronica Williams","321-654-9154",32,"VeronicaWilliams@protonmail.com"));
+    	customers.put(20, new Customer("Frank Coolguy","984-164-4653",31,"FrankCoolguy@gmail.com"));
     	return customers;
     }
 
