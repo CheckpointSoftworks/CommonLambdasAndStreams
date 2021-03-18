@@ -1,12 +1,12 @@
 /*
   Author: MeadowTsunami Softworks LLC (USA)
-  Date:   03/06/2021
+  Date:   03/18/2021
   README: This project is meant to serve as an area of reference and practice for COMMMON STREAM + LAMBDA OPERATIONS IN JAVA.
-		  Level: Intermediate. Assumes knowledge over Collections, OOP, and already strong at loops/logic.
+	  Assumes knowledge over Collections, OOP, loops/logic.  Please cover these first if you are new to lambdas.
           Instead of relying on the Oracle documentation, which can sometimes be lacking in examples, common
-          examples that you NEED TO KNOW are shown here.  This guide should STREAMLINE you (pun intended) into knowledge.
+          examples that you NEED TO KNOW are shown here.  This guide should STREAMLINE you (pun intended) into knowledge on streams.
                     
-  IMPORTS: Please review these Collections before continuing with the tutorial, if you are not confident on these.  */         
+IMPORTS: Please review these Collections before continuing with the tutorial, if you are not confident on these.  */         
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +25,7 @@ import java.util.Collections;
 public class LambdasAndStreams { 
 	public static void main(String[] args) {
 		
-		//Print out Java Version: Note, you need java 1.8+ to use Stream/Lambdas!
+            //Print out Java Version: Note, you need java 1.8+ to use Stream/Lambdas!
 	    System.out.println("Your Java version: ");
 	    System.out.println(System.getProperty("java.version"));
 	    System.out.println(System.getProperty("java.specification.version"));
@@ -256,12 +256,12 @@ public class LambdasAndStreams {
 	    less_than_40 = Arrays.stream(less_than_40).filter(i -> i < 40).toArray();
 	    System.out.println("Filter out all Integers greater than 40 in primitive int[]: " + Arrays.toString(less_than_40));
 	    
-		//Filter all Customers with an age less than or equal to 30 (keep those with age 30+):
+	    //Filter all Customers with an age less than or equal to 30 (keep those with age 30+):
 	    List<Customer> custs_over_30 = custs.stream().filter(per -> per.getAge() > 30).collect(Collectors.toList());
 	    System.out.println("Filter out all Customers with an age less than or equal to 30: ");
 	    custs_over_30.forEach(per -> System.out.print(per.getAge() + " "));
 	    
-		//Filter to only keep all Customers with an @gmail email address:
+	    //Filter to only keep all Customers with an @gmail email address:
 	    List<Customer> custs_with_gmail = custs.stream().filter(p -> p.getEmail() != null)
 	    		                                        .filter(p -> p.getEmail().toLowerCase().contains("@gmail"))
 	    												.collect(Collectors.toList());
