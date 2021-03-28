@@ -420,11 +420,6 @@ public class LambdasAndStreams {
 		lastname_s.entrySet().forEach(c -> System.out.print(c.getKey() + " " + c.getValue().getName()));
 		
 		/* ----------- END OF HASHTABLE AND HASHMAP SECTION OF LAMBDAS STREAMS AND TERNARYS -------------
-		Key Takeaways: 
-			- 
-			- 
-			- 
-			- 
 		-----------------------------------------------------------------------------------------------*/
 	}
 	
