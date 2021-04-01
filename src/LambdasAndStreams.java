@@ -1,6 +1,6 @@
 /*
   Author: MeadowTsunami Softworks LLC (USA)
-  Date:   03/18/2021
+  Date:   03/31/2021
   README: This project is meant to serve as an area of reference and practice for COMMMON STREAM + LAMBDA OPERATIONS IN JAVA.
 	  Assumes knowledge over Collections, OOP, loops/logic.  Please cover these first if you are new to lambdas.
           Instead of relying on the Oracle documentation, which can sometimes be lacking in examples, common
@@ -426,28 +426,28 @@ public class LambdasAndStreams {
     static List<Customer> createCustomers() {
 		List<Customer> custs = new ArrayList<Customer>();
 		custs = List.of(
-					new Customer("Simon Says","614-123-4567",40,"SimonSays123@gmail.com"),
-					new Customer("Mark Smith","614-456-2342",45,"mSmith565@gmail.com"),
-					new Customer("Howard Stern","844-123-4567",67,"howard.stern@gmail.com"),
-					new Customer("Shelley Maldonado","202-555-0117",16,"shellymaldonado@gmail.com"),
-					new Customer("Gaia Sheppard","654-321-4567",18,"gaiasheppard@aol.com"),
-					new Customer("Kasper Conner","11111",27,"kasperconner@hotmail.com"),
-					new Customer("Alberto Fuentes","22222",35,"albertofuentes@verizon.com"),
-					new Customer("Cormac Tomiinson","3216549874",20,"cormactomiison@bing.com"),
-					new Customer("Milo Ratcliffe","1234568521",22,"milo.ratcliffe123@gmail.com"),
-					new Customer("Lewis Holmes","123456789456123",42,"lewis.holmes456@outlook.com"),
-					new Customer("Howard Brett","1234567894",44,"howard.brett383@protonmail.com"),
-					new Customer("Jarred Macias","321-654-7894",38,"jarred.macias834@outlook.com"),
-					new Customer("Ursula Blackmore","1234568774",29,"ursula.blackmore843@yahoo.com"),
-					new Customer("Julian Lowry","654-123-9874",25,"julian.lowry842@yahoo.com"),
-					new Customer("Amelia-Grace Devila","121-456-7894",40,"amelia.grace.devila345@gmail.com"),
-					new Customer("Rosanna Jackson","321-654-1345",35,"rosannajackson.forever@protonmail.com"),
-					new Customer("Hailey Morty","615-485-4956",23,"hailey.morty.osu@aol.com"),
-					new Customer("Falma Dunn","614-425-8582",18,"falma.dunn583@yahoo.com"),
-					new Customer("Ayah Underwood","Frankfort, OH",19,"ayah.underwood@aol.com"),
-					new Customer("Lilliana Webber","SomethingUnvalidated",52,"lilliana.iscool@gmail.com"),
-					new Customer("Example null dude","WeirdoCase",35,null)
-				);
+			new Customer("Simon Says","614-123-4567",40,"SimonSays123@gmail.com"),
+			new Customer("Mark Smith","614-456-2342",45,"mSmith565@gmail.com"),
+			new Customer("Howard Stern","844-123-4567",67,"howard.stern@gmail.com"),
+			new Customer("Shelley Maldonado","202-555-0117",16,"shellymaldonado@gmail.com"),
+			new Customer("Gaia Sheppard","654-321-4567",18,"gaiasheppard@aol.com"),
+			new Customer("Kasper Conner","11111",27,"kasperconner@hotmail.com"),
+			new Customer("Alberto Fuentes","22222",35,"albertofuentes@verizon.com"),
+			new Customer("Cormac Tomiinson","3216549874",20,"cormactomiison@bing.com"),
+			new Customer("Milo Ratcliffe","1234568521",22,"milo.ratcliffe123@gmail.com"),
+			new Customer("Lewis Holmes","123456789456123",42,"lewis.holmes456@outlook.com"),
+			new Customer("Howard Brett","1234567894",44,"howard.brett383@protonmail.com"),
+			new Customer("Jarred Macias","321-654-7894",38,"jarred.macias834@outlook.com"),
+			new Customer("Ursula Blackmore","1234568774",29,"ursula.blackmore843@yahoo.com"),
+			new Customer("Julian Lowry","654-123-9874",25,"julian.lowry842@yahoo.com"),
+			new Customer("Amelia-Grace Devila","121-456-7894",40,"amelia.grace.devila345@gmail.com"),
+			new Customer("Rosanna Jackson","321-654-1345",35,"rosannajackson.forever@protonmail.com"),
+			new Customer("Hailey Morty","615-485-4956",23,"hailey.morty.osu@aol.com"),
+			new Customer("Falma Dunn","614-425-8582",18,"falma.dunn583@yahoo.com"),
+			new Customer("Ayah Underwood","Frankfort, OH",19,"ayah.underwood@aol.com"),
+			new Customer("Lilliana Webber","SomethingUnvalidated",52,"lilliana.iscool@gmail.com"),
+			new Customer("Example null dude","WeirdoCase",35,null)
+		);		
 		return custs;
 	}
     
