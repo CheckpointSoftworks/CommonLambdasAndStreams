@@ -4,7 +4,7 @@
   README: This project is meant to serve as an area of reference and practice for COMMMON STREAM + LAMBDA OPERATIONS IN JAVA.
 	  Assumes knowledge over Collections, OOP, loops/logic.  Please cover these first if you are new to lambdas.
           Instead of relying on the Oracle documentation, which can sometimes be lacking in examples, common
-          examples that you NEED TO KNOW are shown here.  This guide should STREAMLINE you (pun intended) into knowledge on streams.
+          examples that actual come up in practical scenarios are shown here.  This guide should STREAMLINE you (pun intended) into knowledge on streams.
                     
 IMPORTS: Please review these Collections before continuing with the tutorial, if you are not confident on these.  */         
 import java.util.AbstractMap;
